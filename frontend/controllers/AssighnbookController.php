@@ -15,11 +15,8 @@ class AssighnbookController extends \yii\web\Controller
     {
         $model = new \frontend\models\BorrowedBook();
         
-        if ($model->load(Yii::$app->request->post())) {
-            if ($model->validate()) {
-                // form inputs are valid, do something here
-                return;
-            }
+        if ($model->load(Yii::$app->request->post()) && $model->save()  ) {
+            return $this->redirect(['site/index']);
         }
         
         return $this->renderAjax('assignbook', [

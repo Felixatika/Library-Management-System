@@ -2,13 +2,19 @@
 
 use yii\bootstrap\Modal;
 use frontend\models\Book;
+use frontend\models\BorrowedBook;
+use frontend\models\Student;
 
 /* @var $this yii\web\View */
 
 $this->title = 'BOOKBAR LMS';
 $totalBooks = Book::find()->asArray()->all();
+$totalStudents = Student::find()->asArray()->all();
+$totalBorrowedBooks = BorrowedBook::find()->asArray()->all();
+$borrowList = BorrowedBook::find()->asArray()->all();
 ?>
 <div class="row">
+
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
             <span class="info-box-icon bg-green"><i class="fa fa-book"></i></span>
@@ -28,7 +34,7 @@ $totalBooks = Book::find()->asArray()->all();
 
             <div class="info-box-content">
               <span class="info-box-text">BORROWED BOOKS</span>
-              <span class="info-box-number">300</span>
+              <span class="info-box-number"><?= count($totalBorrowedBooks)?></span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -45,7 +51,7 @@ $totalBooks = Book::find()->asArray()->all();
 
             <div class="info-box-content">
               <span class="info-box-text">OVERDUE BOOKS</span>
-              <span class="info-box-number">20</span>
+              <span class="info-box-number"><?= count($totalBorrowedBooks)?></span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -58,7 +64,7 @@ $totalBooks = Book::find()->asArray()->all();
 
             <div class="info-box-content">
               <span class="info-box-text">TOTAL STUDENTS</span>
-              <span class="info-box-number">100</span>
+              <span class="info-box-number"><?= count($totalStudents)?></span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -67,8 +73,8 @@ $totalBooks = Book::find()->asArray()->all();
         <!-- /.col -->
       </div>
       
-    
       <div class="row">
+
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
@@ -89,6 +95,8 @@ $totalBooks = Book::find()->asArray()->all();
               </div>
             </div>
             <!-- /.box-header -->
+           
+            
             <div class="box-body table-responsive no-padding">
               <table class="table table-hover">
                 <tbody><tr>
@@ -99,15 +107,19 @@ $totalBooks = Book::find()->asArray()->all();
                   <th>Return Book</th>
                   <th>Status</th>
                 </tr>
+                <?php foreach ($borrowList as $BorrowedBook){?>
                 <tr>
-                  <td>John Doe</td>
-                  <td>John Doe</td>
-                  <td>11-7-2014</td>
-                  <td>11-7-2014</td>
+                
+                  <td><?= $BorrowedBook['studentId']?></td>
+                  <td><?= $BorrowedBook['bookId']?></td>
+                  <td><?= $BorrowedBook['borrowDate']?></td>
+                  <td><?= $BorrowedBook['returnDate']?></td>
                   <td><span class="btn btn-danger">Return</span></td>
                   <td><span class="label label-success">Approved</span></td>
                 </tr>
+
               </tbody></table>
+              <?php };?>
             </div>
             <!-- /.box-body -->
           </div>
