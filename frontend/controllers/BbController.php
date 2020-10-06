@@ -3,17 +3,16 @@
 namespace frontend\controllers;
 
 use Yii;
-use frontend\models\Book;
-use frontend\models\BookSearch;
+use frontend\models\BorrowedBook;
+use frontend\models\BorrowedBookSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use frontend\models\BookAuthor;
 
 /**
- * BookController implements the CRUD actions for Book model.
+ * BbController implements the CRUD actions for BorrowedBook model.
  */
-class BookController extends Controller
+class BbController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -31,12 +30,12 @@ class BookController extends Controller
     }
 
     /**
-     * Lists all Book models.
+     * Lists all BorrowedBook models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new BookSearch();
+        $searchModel = new BorrowedBookSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -46,7 +45,7 @@ class BookController extends Controller
     }
 
     /**
-     * Displays a single Book model.
+     * Displays a single BorrowedBook model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -59,58 +58,30 @@ class BookController extends Controller
     }
 
     /**
-     * Creates a new Book model.
+     * Creates a new BorrowedBook model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Book();
-        $bookAuthor = New BookAuthor();
-        
+        $model = new BorrowedBook();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            
-            $authorId = Yii::$app->request->post()['BookAuthor']['authorId'];
-            $bookId = $model->bookId;
-            if($this->bookauthors($authorId,$bookId)){
+            if($this->bookUpdate($model->bookId)){
                 return $this->redirect(['index']);
             }
-            return $this->redirect(['create']);
         }
-
-        return $this->render('create', [
-            'model' => $model,
-            'bookAuthor'=>$bookAuthor
-        ]);
-    }
-    
-    public function actionAddauthor()
-    {
-        $model = new \frontend\models\Author();
-        
-        if ($model->load(Yii::$app->request->post())) {
-            if ($model->validate() && $model->save()) {
-                return $this->redirect(['create']);
-            }
-        }
-        
-        return $this->renderAjax('addauthor', [
+        return $this->renderAjax('create', [
             'model' => $model,
         ]);
     }
     
-    public function bookauthors($authorId,$bookId){
-        $model = New BookAuthor();
-        $data= array('BookAuthor'=>['bookId'=>$bookId,'authorId'=>$authorId]);
-        
-        if($model->load($data) && $model->save()){
-            return true;
-        }
-        return false;
+    public function bookUpdate($bookId){
+        $command = \Yii::$app->db->createCommand('UPDATE book SET status=1 WHERE bookId='.$bookId);
+        $command->execute();
+        return true;
     }
-
     /**
-     * Updates an existing Book model.
+     * Updates an existing BorrowedBook model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -121,7 +92,7 @@ class BookController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->bookId]);
+            return $this->redirect(['view', 'id' => $model->bbId]);
         }
 
         return $this->render('update', [
@@ -130,7 +101,7 @@ class BookController extends Controller
     }
 
     /**
-     * Deletes an existing Book model.
+     * Deletes an existing BorrowedBook model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -138,21 +109,28 @@ class BookController extends Controller
      */
     public function actionDelete($id)
     {
+        $bookId = BorrowedBook::find()->where(['bbId'=>$id])->one();
         $this->findModel($id)->delete();
-
+        $this->updateAfterDelete($bookId->bookId);
         return $this->redirect(['index']);
+    }
+    
+    public function updateAfterDelete($bookId){
+        $command = \Yii::$app->db->createCommand('UPDATE book SET status=0 WHERE bookId='.$bookId);
+        $command->execute();
+        return true;
     }
 
     /**
-     * Finds the Book model based on its primary key value.
+     * Finds the BorrowedBook model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Book the loaded model
+     * @return BorrowedBook the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Book::findOne($id)) !== null) {
+        if (($model = BorrowedBook::findOne($id)) !== null) {
             return $model;
         }
 

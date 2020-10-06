@@ -2,7 +2,7 @@ $(document).ready(function() {
 	
 	$('.assighnbook').click(function(e){
 			e.preventDefault();
-       $.get('http://localhost/lm/assighnbook/assignbook',function(data){
+       $.get('create',function(data){
 			$('#assignbook').modal('show')
 		 		.find('#assignbookContent')
 		 		.html(data);

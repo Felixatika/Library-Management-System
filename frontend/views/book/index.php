@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'bookName',
                         'referenceNo',
                         'publisher',
-            
+                        'status',
                         ['class' => 'yii\grid\ActionColumn'],
                     ],
                 ]); ?>
