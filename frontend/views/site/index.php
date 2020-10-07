@@ -3,8 +3,12 @@
 /* @var $this yii\web\View */
 
 use yii\bootstrap\Modal;
+use frontend\models\Book;
+use frontend\models\borrowedbook;
 
-$this->title = 'PEAK LIBRARY MANAGEMENT SYSTEM';
+// $this->title = 'LIBRARY MANAGEMENT SYSTEM';
+$totalBooks=Book::find()->asArray()->all();
+$borrowedBooks=Borrowedbook::find()->asArray()->all();
 ?>
 <div class="row">
         <div class="col-md-3 col-sm-6 col-xs-12">
@@ -12,7 +16,7 @@ $this->title = 'PEAK LIBRARY MANAGEMENT SYSTEM';
             <span class="info-box-icon bg-green"><i class="fa fa-book"></i></span>
             <div class="info-box-content">
               <span class="info-box-text">TOTAL BOOKS</span>
-              <span class="info-box-number">500<small></small></span>
+              <span class="info-box-number"><?echo $totalBooks?><small></small></span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -107,13 +111,7 @@ $this->title = 'PEAK LIBRARY MANAGEMENT SYSTEM';
       </div>      
 
       <?php
-        Modal::begin([
-            'header'=>'<h4>Assign A Book</h4>',
-            'id'=>'assignbook',
-            'size'=>'modal-lg'
-            ]);
-        echo "<div id='assignbookContent'></div>";
-        Modal::end();
+       
 
         Modal::begin([
           'header'=>'<h4>Return a book</h4>',

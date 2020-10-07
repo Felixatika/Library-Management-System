@@ -11,8 +11,8 @@ use frontend\models\Book;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Borrowedbook */
 /* @var $form ActiveForm */
-$students=ArrayHelper::map(student::find()->all(), 'studentsId','studentsId');
-$book=ArrayHelper::map(book::find()->all(), 'bookId','bookId');
+$students=ArrayHelper::map(student::find()->all(), 'studentsId','fullName');
+$book=ArrayHelper::map(book::find()->all(), 'bookId','bookName');
 
 
 ?>
@@ -30,7 +30,7 @@ $book=ArrayHelper::map(book::find()->all(), 'bookId','bookId');
               'format' => 'yyyy-mm-dd'
             ]
           ]); ?>
-        <?= $form->field($model, 'returnDate')->widget(
+        <?= $form->field($model, 'expectedReturnDate')->widget(
             DatePicker::className(), [
                 'inline'=> false,
                 'clientOptions'=>[

@@ -39,23 +39,7 @@ $authors = ArrayHelper::map(Author::find()->all(), 'authorId', 'authorName', 're
     </div>
 </div>
     
-<?php
-        Modal::begin([
-            'header'=>'<h4> ADD AUTHOR </h4>',
-            'id'=>'addauthor',
-            'size'=>'modal-lg'
-            ]);
-        echo "<div id='addauthorContent'></div>";
-        Modal::end();
 
-        Modal::begin([
-            'header'=>'<h4> ADD AUTHOR </h4>',
-            'id'=>'returnbook',
-            'size'=>'modal-lg'
-            ]);
-        echo "<div id='returnbookContent'></div>";
-        Modal::end();
-      ?>
 
 
 

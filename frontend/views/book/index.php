@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use frontend\models\Book;
+use yii\bootstrap\Modal;
+
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\BookSearch */
@@ -31,15 +33,21 @@ $this->params['breadcrumbs'][] = $this->title;
           'filterModel' => $searchModel,
           'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
             'bookId',
             'bookName',
             'referenceNo',
             'publisher',
-
+            'status',
             ['class' => 'yii\grid\ActionColumn'],
-            
-
         ],
-    ]);
+    ]);?>
+    <?php
+        Modal::begin([
+            'header'=>'<h4> ADD AUTHOR </h4>',
+            'id'=>'addauthor',
+            'size'=>'modal-lg'
+            ]);
+        echo "<div id='addauthorContent'></div>";
+        Modal::end();
+      ?>
      

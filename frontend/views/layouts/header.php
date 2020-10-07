@@ -7,6 +7,7 @@ use yii\widgets\Form;
 /* @var $this \yii\web\View */
 /* @var $content string */
 $users = ArrayHelper::map(User::find()->all(), 'username', 'username');
+
 ?>
 
 <header class="main-header">
@@ -248,8 +249,7 @@ $users = ArrayHelper::map(User::find()->all(), 'username', 'username');
                                  alt="User Image"/>
 
                             <p>
-                                Alexander Pierce - Web Developer
-                                <small>Member since Nov. 2012</small>
+                                <small>Member</small>
                             </p>
                         </li>
                         <!-- Menu Body -->

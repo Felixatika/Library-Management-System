@@ -1,6 +1,7 @@
 <?php
 
 namespace frontend\models;
+use frontend\models\Borrowedbook;
 
 use Yii;
 
@@ -11,8 +12,8 @@ use Yii;
  * @property int $studentId
  * @property int $bookId
  * @property string $borrowDate
- * @property string $returnDate
- *
+ * @property string $expectedReturnDate
+ * @property string|null $actualReturnDate
  * @property Student $student
  * @property Book $book
  */
@@ -32,9 +33,9 @@ class Borrowedbook extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['studentId', 'bookId', 'borrowDate', 'returnDate'], 'required'],
+            [['studentId', 'bookId', 'borrowDate', 'expectedReturnDate'], 'required'],
             [['studentId', 'bookId'], 'integer'],
-            [['borrowDate', 'returnDate'], 'safe'],
+            [['borrowDate', 'expectedReturnDate', 'actualReturnDate'], 'safe'],
             [['studentId'], 'exist', 'skipOnError' => true, 'targetClass' => Student::className(), 'targetAttribute' => ['studentId' => 'studentsId']],
             [['bookId'], 'exist', 'skipOnError' => true, 'targetClass' => Book::className(), 'targetAttribute' => ['bookId' => 'bookId']],
         ];
@@ -50,7 +51,8 @@ class Borrowedbook extends \yii\db\ActiveRecord
             'studentId' => 'Student ID',
             'bookId' => 'Book ID',
             'borrowDate' => 'Borrow Date',
-            'returnDate' => 'Return Date',
+            'expectedReturnDate' => 'Expected Return Date',
+            'actualReturnDate' => 'Actual Return Date',
         ];
     }
 

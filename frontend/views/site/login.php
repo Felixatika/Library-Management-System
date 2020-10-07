@@ -17,7 +17,7 @@ $fieldOptions2 = [
 ?>
 <div class="login-box">
     <div class="login-logo">
-        <a href="#"><b>BRENDA'S</b><br>Library Management System</a>
+        <a href="#"><b>BookBar</b><br>Library Management System</a>
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">

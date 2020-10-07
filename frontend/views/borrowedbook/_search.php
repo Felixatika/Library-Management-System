@@ -4,26 +4,28 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model frontend\models\BookSearch */
+/* @var $model frontend\models\BorrowedbookSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="book-search">
+<div class="borrowedbook-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
     ]); ?>
 
+    <?= $form->field($model, 'bbId') ?>
+
+    <?= $form->field($model, 'studentId') ?>
+
     <?= $form->field($model, 'bookId') ?>
 
-    <?= $form->field($model, 'bookName') ?>
+    <?= $form->field($model, 'borrowDate') ?>
 
-    <?= $form->field($model, 'referenceNo') ?>
+    <?= $form->field($model, 'expectedReturnDate') ?>
 
-    <?= $form->field($model, 'publisher') ?>
-
-    <?= $form->field($model, 'status') ?>
+    <?php // echo $form->field($model, 'actualReturnDate') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
