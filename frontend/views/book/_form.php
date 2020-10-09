@@ -9,6 +9,10 @@ use yii\bootstrap\Modal;
 /* @var $form yii\widgets\ActiveForm */
 $authors = ArrayHelper::map(Author::find()->all(), 'authorId', 'authorName', 'referenceNumber');
 ?>
+<?php $form = ActiveForm::begin([
+            'action' =>['book/addauthor'],
+            'method'=>'post',
+        ]); ?>
 <div class="row">
     <div class="book-form">
 
@@ -21,8 +25,7 @@ $authors = ArrayHelper::map(Author::find()->all(), 'authorId', 'authorName', 're
        </div>
        <div class="col-xs-2">
             
-       		<button type="button" class="btn btn-block btn-success addauthor"><i class="fa fa-plus" aria-hidden="true"></i> Add Author</button>
-       </div>  
+       <button type="button" class="btn btn-block btn-success addauthor"><i class="fa fa-plus" aria-hidden="true"></i> Add Author</button>       </div>  
         <div class="col-xs-12">  
         	<?= $form->field($model, 'referenceNo')->textInput(['maxlength' => true,'placeholder'=>'Input Reference NO'])->label(false) ?>
        </div>
@@ -40,7 +43,16 @@ $authors = ArrayHelper::map(Author::find()->all(), 'authorId', 'authorName', 're
 </div>
     
 
-
+<?php
+        Modal::begin([
+            'header'=>'<h4> ADD AUTHOR </h4>',
+            'id'=>'addauthor',
+            'size'=>'modal-lg'
+            ]);
+        echo "<div id='addauthorContent'></div>";
+        Modal::end();
+      ?>
+     
 
 
 

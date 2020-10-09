@@ -15,7 +15,15 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="box box-info">
             <div class="box-header with-border">
-          <?= Html::a('Add Book', ['create'], ['class' => 'btn btn-success']) ?>
+            <?php if(Yii::$app->user->can('student')){?>
+              <?= Html::a('Borrow Book', ['borrowBook'], ['class' => 'btn btn-success']) ?>
+            <?php }?>
+            <?php if(Yii::$app->user->can('librarian')){?>
+              <?= Html::a('Add Book', ['create'], ['class' => 'btn btn-success']) ?>
+            <?php }?>
+            
+
+          
               <div style="text-align: center;">
                   <h3 class="box-title"><?= Html::encode($this->title) ?></h3>
               </div>
@@ -41,6 +49,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]);?>
+    
+
     <?php
         Modal::begin([
             'header'=>'<h4> ADD AUTHOR </h4>',

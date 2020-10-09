@@ -52,7 +52,7 @@ $searchModel = new BorrowedbookSearch();
             <span class="info-box-icon bg-red"><i class="fa fa-book"></i></span>
             <div class="info-box-content">
               <span class="info-box-text">OVERDUE BOOKS</span>
-              <span class="info-box-number"></span>
+              <span class="info-box-number">0</span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -121,7 +121,7 @@ $searchModel = new BorrowedbookSearch();
                         
                         [
                           
-                            'label'=>'Return Book',
+                            'attribute'=>'Return Book',
                             'format' => 'raw',
                             'value' => function ($dataProvider) {
                             return '<span val="'.$dataProvider->bbId.'" class="btn btn-danger returnbook"> Return </span>';
@@ -210,7 +210,7 @@ $searchModel = new BorrowedbookSearch();
                 ]); }?> 
             <?php
              Modal::begin([
-            'header'=>'<h4>Return Book</h4>',
+            'header'=>'<h4>Do you want to return Book?</h4>',
              'id'=>'returnbook',
             'size'=>'modal-md'
             ]);

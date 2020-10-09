@@ -10,6 +10,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\ForbiddenHttpException;
+use common\models\User;
 
 /**
  * BookController implements the CRUD actions for Book model.
@@ -64,28 +65,47 @@ class BookController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
+    // public function actionCreate()
+    // {
+    //     if( \Yii::$app->user->can( 'create-book' ))
+    //     {
+    //         $model = new Book();
+    //         $bookauthor = New Bookauthor();
+    //         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+    //             $authorId = Yii::$app->request->post()['Bookauthor']['authorId'];
+    //             $bookId = $model->bookId;
+    //             if($this->actionBookauthor($authorId,$bookId)){
+    //                 return $this->redirect(['index']);
+    //             }
+    //             return $this->redirect(['create']);
+    //         }
+    //         return $this->render('create', [
+    //             'model' => $model,
+    //             'bookAuthor'=>$bookauthor
+    //         ]);
+    //     }
+    //     else{
+    //         throw new ForbiddenHttpException();
+    //     }
+    // }
     public function actionCreate()
     {
-        if( \Yii::$app->user->can( 'create-book' ))
-        {
-            $model = new Book();
-            $bookauthor = New Bookauthor();
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                $authorId = Yii::$app->request->post()['Bookauthor']['authorId'];
-                $bookId = $model->bookId;
-                if($this->actionBookauthor($authorId,$bookId)){
-                    return $this->redirect(['index']);
-                }
-                return $this->redirect(['create']);
-            }
-            return $this->render('create', [
-                'model' => $model,
-                'bookAuthor'=>$bookauthor
-            ]);
+        $model = new Book();
+        $bookAuthor = new Bookauthor;
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $authorId = Yii::$app->request->post()['Bookauthor']['authorId'];
+            $bookId = $model->bookId;
+            if($this->actionBookauthor($authorId,$bookId)){
+                              return $this->redirect(['index']);
+                           }
+            return $this->redirect(['create']);
         }
-        else{
-            throw new ForbiddenHttpException();
-        }
+
+        return $this->render('create', [
+            'model' => $model,
+             'bookAuthor'=>$bookAuthor
+        ]);
     }
  
     public function actionBookauthor($authorId,$bookId){

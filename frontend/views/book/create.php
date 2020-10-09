@@ -1,6 +1,7 @@
 <?php
 use yii\helpers\Html;
-use yii\bootstrap\modal;
+use yii\bootstrap\Modal;
+
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Book */
 $this->title = 'Create A Book';
@@ -22,14 +23,4 @@ $this->params['breadcrumbs'][] = $this->title;
             <!-- /.box-body -->
         </div>
     </div>
-    <?php 
-                Modal::begin([
-                  'header'=>'<h4> ADD AUTHOR </h4>',
-                  'id'=>'addauthor',
-                  'size'=>'modal-lg'
-                  ]);
-              echo "<div id='addauthorContent'></div>";
-              Modal::end();
-                ?>
-
-    
+   
